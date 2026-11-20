@@ -1,0 +1,27 @@
+CREATE TABLE staff_leaves (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NOT NULL,
+    leave_type ENUM('annual','sick','casual','parental','official_assignment','other') NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    reason TEXT NOT NULL,
+    attachment_path VARCHAR(68) CHARACTER SET ascii COLLATE ascii_bin NULL,
+    status ENUM('pending','approved','rejected','cancelled') NOT NULL DEFAULT 'pending',
+    decision_note VARCHAR(500) NULL,
+    overlap_reason VARCHAR(500) NULL,
+    approved_by BIGINT UNSIGNED NULL,
+    approved_at TIMESTAMP NULL,
+    created_by BIGINT UNSIGNED NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    lock_version INT UNSIGNED NOT NULL DEFAULT 0,
+    UNIQUE KEY leaves_attachment_path (attachment_path),
+    INDEX leaves_staff_status_dates (user_id, status, start_date, end_date),
+    INDEX leaves_status_dates (status, start_date, end_date, id),
+    CHECK (end_date >= start_date),
+    CHECK ((status IN ('approved','cancelled') AND approved_by IS NOT NULL AND approved_at IS NOT NULL)
+        OR (status IN ('pending','rejected') AND approved_by IS NULL AND approved_at IS NULL)),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (approved_by) REFERENCES users(id),
+    FOREIGN KEY (created_by) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4;

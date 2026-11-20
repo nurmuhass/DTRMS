@@ -1,0 +1,14 @@
+{
+  "name": "dtrms/logbook",
+  "description": "Daily Task Reporting and Management System",
+  "type": "project",
+  "require": {
+    "php": ">=8.2",
+    "ext-mbstring": "*",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "phpmailer/phpmailer": "^7.0",
+    "dompdf/dompdf": "^3.1",
+    "phpoffice/phpspreadsheet": "^5.0"
+  }
+}

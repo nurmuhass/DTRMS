@@ -1,0 +1,16 @@
+ALTER TABLE daily_reports
+    ADD COLUMN reference_number VARCHAR(40) CHARACTER SET ascii COLLATE ascii_bin NULL,
+    ADD UNIQUE KEY daily_reports_reference_unique (reference_number),
+    ADD COLUMN reporter_name VARCHAR(150) NULL,
+    ADD COLUMN reporter_staff_code VARCHAR(40) NULL,
+    ADD COLUMN department_name_snapshot VARCHAR(150) NULL,
+    ADD COLUMN arrival_time TIME NULL,
+    ADD COLUMN work_start_time TIME NULL,
+    ADD COLUMN work_end_time TIME NULL,
+    ADD COLUMN achievement TEXT NULL,
+    ADD COLUMN challenges TEXT NULL,
+    ADD COLUMN declared BOOLEAN NOT NULL DEFAULT FALSE,
+    ADD COLUMN overnight BOOLEAN NOT NULL DEFAULT FALSE,
+    ADD COLUMN working_minutes SMALLINT UNSIGNED NULL,
+    ADD COLUMN first_submitted_at TIMESTAMP NULL,
+    ADD COLUMN lock_version INT UNSIGNED NOT NULL DEFAULT 0;

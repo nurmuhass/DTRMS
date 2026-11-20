@@ -1,0 +1,12 @@
+CREATE TABLE staff_weekly_compliance_history (
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+ user_id BIGINT UNSIGNED NOT NULL,
+ week_start DATE NOT NULL,
+ final_result JSON NOT NULL,
+ reason VARCHAR(500) NOT NULL,
+ actor_id BIGINT UNSIGNED NULL,
+ created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ INDEX (user_id,week_start,id),
+ FOREIGN KEY (user_id) REFERENCES users(id),
+ FOREIGN KEY (actor_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4;

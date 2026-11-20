@@ -1,0 +1,6 @@
+Require all granted
+DirectoryIndex index.php
+RewriteEngine On
+RewriteRule ^assets/(?:app\.css|app\.js|chart\.umd\.min\.js)$ - [END]
+RewriteRule ^index\.php$ - [END]
+RewriteRule ^ index.php [END]

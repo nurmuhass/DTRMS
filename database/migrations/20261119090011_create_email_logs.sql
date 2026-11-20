@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS email_logs (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT UNSIGNED NULL,
+    recipient VARCHAR(254) NOT NULL,
+    template VARCHAR(80) NOT NULL,
+    status ENUM('queued','sent','failed') NOT NULL DEFAULT 'queued',
+    provider_message_id VARCHAR(255) NULL,
+    sent_at TIMESTAMP NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX (status, created_at),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4;

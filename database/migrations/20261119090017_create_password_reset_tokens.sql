@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    user_id BIGINT UNSIGNED PRIMARY KEY,
+    token_hash CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX (expires_at),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4;
