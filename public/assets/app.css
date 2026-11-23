@@ -276,6 +276,13 @@ h3 { font-size: 1rem; }
 }
 .form-field input[type="checkbox"], .form-field input[type="radio"] { width: auto; min-height: auto; }
 .form-field select { width: 100%; }
+.password-control {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .5rem;
+}
+.password-control input { min-width: 0; }
+.password-control button { min-inline-size: 4.5rem; }
 input[type="checkbox"], input[type="radio"] { accent-color: var(--primary); }
 .form-field small, .report-declaration small { color: var(--muted); }
 .hr-filters { gap: .7rem; }

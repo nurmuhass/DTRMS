@@ -14,6 +14,28 @@ applyTheme();
 document.addEventListener('DOMContentLoaded', initializePortal);
 
 function initializePortal() {
+    for (const input of document.querySelectorAll('input[type="password"]')) {
+        const fieldName = input.labels?.[0]?.textContent.trim().toLowerCase() || 'password';
+        const row = document.createElement('div');
+        row.className = 'password-control';
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'button button-secondary';
+        if (input.id) toggle.setAttribute('aria-controls', input.id);
+
+        function setVisible(visible) {
+            input.type = visible ? 'text' : 'password';
+            const action = visible ? 'Hide' : 'Show';
+            toggle.textContent = action;
+            toggle.setAttribute('aria-label', action + ' ' + fieldName);
+        }
+
+        setVisible(false);
+        toggle.addEventListener('click', () => setVisible(input.type === 'password'));
+        input.before(row);
+        row.append(input, toggle);
+    }
+
     document.querySelector('[data-print-report]')?.addEventListener('click', () => window.print());
     const themeButton = document.querySelector('[data-theme-toggle]');
     function updateTheme() {
